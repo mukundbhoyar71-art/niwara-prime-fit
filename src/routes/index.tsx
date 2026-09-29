@@ -74,7 +74,7 @@ function Hero() {
       <p>YOUR FITNESS. YOUR DISCIPLINE. YOUR TRANSFORMATION.</p>
       <div className="hero-actions"><Button asChild variant="light" size="editorial"><a href="#membership">START TRAINING <ArrowUpRight /></a></Button><Button asChild variant="transparent" size="editorial"><a href="#facilities">EXPLORE THE GYM <ArrowRight /></a></Button></div>
     </div>
-    <div className="hero-bottom page-gutter"><a href="#about" aria-label="Scroll to about Niwara"><span className="scroll-rule" /> SCROLL TO EXPLORE <ArrowDown size={15} /></a><span>EST. IN PUNE · BUILT FOR PROGRESS</span></div>
+     <div className="hero-bottom page-gutter"><a href="#about" aria-label="Scroll to about Niwara"><span className="scroll-rule" /> SCROLL TO EXPLORE <ArrowDown size={15} /></a><span>NAVI PETH, PUNE · BUILT FOR PROGRESS</span></div>
   </section>;
 }
 
@@ -155,5 +155,24 @@ function Footer() {
 }
 
 function HomePage() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const targets = document.querySelectorAll(".section-kicker, .statement-layout, .section-heading-row, .facility-card, .experience-image, .experience-content > div:last-child, .trainer-card, .why-layout, .membership-layout, .amenities-heading, .amenity, .location-layout");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("revealed");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
+    targets.forEach((target) => {
+      if (target.getBoundingClientRect().top > window.innerHeight + 20) {
+        target.classList.add("reveal-ready");
+        observer.observe(target);
+      }
+    });
+    return () => observer.disconnect();
+  }, []);
   return <><Navbar /><main><Hero /><BrandStatement /><Facilities /><TrainingExperience /><Trainers /><WhyNiwara /><Membership /><Amenities /><Location /></main><Footer /><a className="mobile-sticky-cta" href="#membership">JOIN NOW <ArrowUpRight size={18} aria-hidden="true" /></a></>;
 }
