@@ -68,7 +68,7 @@ export function Plans() {
     <dialog ref={dialogRef} className="pricing-dialog" aria-labelledby="pricing-title" onClick={e => { if (e.target === dialogRef.current) dialogRef.current?.close(); }}>
       <div className="dialog-inner">
         <div className="dialog-head"><h3 id="pricing-title">GET MEMBERSHIP PRICING</h3><button type="button" className="dialog-close" onClick={() => dialogRef.current?.close()} aria-label="Close pricing form"><X /></button></div>
-        {plan && <LeadForm key={plan} id="pricing-form" type="pricing" fields={["name", "phone", "email", "duration", "message"]} defaultDuration={planDuration[plan]} submitLabel="GET MEMBERSHIP PRICING" successTitle="THANK YOU." successText="Thanks! Your enquiry has been received. The Niwara Gym team will get in touch with you." />}
+        {plan && <LeadForm key={plan} id="pricing-form" type="pricing" fields={["name", "phone", "email", "duration", "message"]} defaultDuration={planDuration[plan] ?? ""} submitLabel="GET MEMBERSHIP PRICING" successTitle="THANK YOU." successText="Thanks! Your enquiry has been received. The Niwara Gym team will get in touch with you." />}
       </div>
     </dialog>
   </section>;
@@ -111,8 +111,8 @@ export function Gallery() {
     {items.length ? <div className="gallery-grid">{items.map((g, i) => <button type="button" key={g.src + g.cat} className="gallery-item" onClick={() => setIndex(i)} aria-label={`Open image: ${g.alt}`}><img src={g.src} alt={g.alt} loading="lazy" width={800} height={800} /><span>{g.cat}</span></button>)}</div> : <p className="gallery-empty">More photographs coming soon.</p>}
     <dialog ref={dialogRef} className="lightbox" aria-label="Image viewer" onClose={() => setIndex(null)}
       onKeyDown={e => { if (e.key === "ArrowRight") step(1); if (e.key === "ArrowLeft") step(-1); }}
-      onTouchStart={e => { touchX.current = e.touches[0].clientX; }}
-      onTouchEnd={e => { if (touchX.current === null) return; const dx = e.changedTouches[0].clientX - touchX.current; if (Math.abs(dx) > 45) step(dx < 0 ? 1 : -1); touchX.current = null; }}>
+      onTouchStart={e => { touchX.current = e.touches[0]?.clientX ?? null; }}
+      onTouchEnd={e => { if (touchX.current === null) return; const dx = (e.changedTouches[0]?.clientX ?? touchX.current) - touchX.current; if (Math.abs(dx) > 45) step(dx < 0 ? 1 : -1); touchX.current = null; }}>
       {index !== null && items[index] && <>
         <img src={items[index].src} alt={items[index].alt} />
         <p className="lightbox-caption">{items[index].alt} · {index + 1} / {items.length}</p>
