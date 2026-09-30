@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState } from "react";
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Clock3, CreditCard, Dumbbell, Menu, ParkingCircle, Phone, ShowerHead, MapPin, Accessibility, X, CircleParking, WalletCards, Sparkles, Users, Target, Armchair, DoorOpen, Toilet, Trees, Bath, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LeadForm, focusForm } from "@/components/niwara/LeadForm";
