@@ -258,3 +258,8 @@ h2 em { font-style: normal; color: var(--muted-foreground); }
   .form-buttons > * , .section-cta > * { width: 100%; }
   .lightbox-prev, .lightbox-next { top: auto; bottom: 24px; transform: none; }
 }
+@media (max-width: 640px) {
+  .hero { height: auto; min-height: 100svh; display: flex; flex-direction: column; }
+  .hero-content { position: relative; top: auto; transform: none; padding-top: 120px; }
+  .hero-bottom { position: relative; bottom: auto; margin-top: auto; padding-top: 40px; padding-bottom: 24px; }
+}
